@@ -1,0 +1,40 @@
+{
+  "mecanicas": {
+    "strafe shooting": "Mecanica fundamental. Consiste en moverse lateralmente y detenerse por completo por una fracción de segundo antes de disparar. Si disparas mientras te mueves en Valorant, el retroceso es incontrolable.",
+    "counter strafing": "Es el acto de presionar la tecla opuesta a tu inercia (ej: si te mueves con 'A', sueltas y tocas 'D') para frenar en seco. A diferencia de otros shooters tácticos como CS2 donde es obligatorio, en Valorant basta con soltar la tecla de movimiento (Dead-zoning), pero el counter-strafe clásico te da mayor consistencia.",
+    "crosshair placement": "El posicionamiento de la mira. Significa mantener tu retícula de forma constante a la altura de la cabeza del enemigo y pre-apuntando a los ángulos. El objetivo es que, cuando el rival aparezca, solo tengas que hacer clic sin necesidad de mover el mouse.",
+    "slicing the pie": "También conocido como 'limpiar ángulos'. Es la técnica geométrica de asomarse a un sitio abriendo el ángulo poco a poco, aislando los duelos 1v1 para no exponerte a varios enemigos simultáneamente."
+  },
+  "armas": {
+    "vandal": {
+      "tipo": "Rifle de asalto",
+      "costo": 2900,
+      "dano": {
+        "en cualquier distancia": "Cabeza: 160 | Cuerpo: 40 | Piernas: 34"
+      },
+      "consejo": {
+        "corta": "Puedes hacer un spray (mantener presionado el boton de disparo) apuntando al pecho y bajando la mira levemente para controlar el retroceso hacia arriba.",
+        "media": "Rafagas cortas de 2 a 3 balas. Debes hacer 'strafe shooting' para no ser un blanco facil para el enemigo",
+        "larga": "Usar disparos individuales (taps) es la mejor opcion, debes tomarte una fracción de segundo entre cada disparo para que el recoil se reinicie."
+    }
+    },
+    "phantom": {
+      "tipo": "Rifle de asalto",
+      "costo": 2900,
+      "dano": {
+        "0-20m": "Cabeza: 156 | Cuerpo: 39 | Piernas: 33",
+        "a mas de 20m": "Cabeza: 140 | Cuerpo: 35 | Piernas: 29"
+      },
+      "consejo": "Rifle con silenciador. No deja trazadoras a través del humo y su retroceso es más fácil de controlar (Spray Transfer), pero a más de 20 metros no mata de un tiro a la cabeza a un enemigo con escudo completo."
+    },
+    "sheriff": {
+      "tipo": "Arma de lado (Pistola)",
+      "costo": 800,
+      "dano": {
+        "0-30m": "Cabeza: 159 | Cuerpo: 55 | Piernas: 46",
+        "a mas de 30m": "Cabeza: 145 | Cuerpo: 50 | Piernas: 42"
+      },
+      "consejo": "El revólver económico por excelencia si hay que hacer una ronda economica. Letal a corta y media distancia. Pero ten cuidado, a partir de los 30 metros, un tiro a la cabeza dejará al enemigo a 5 HP si tiene escudos pesados."
+    }
+  }
+}
