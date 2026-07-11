@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ValoAcademy Chatbot</title>
+    <style>
+        :root {
+            --v-red: #ff4655;
+            --v-dark: #0f1923;
+            --v-card: #1f2933;
+            --v-text: #f9f9f9;
+            --v-gray: #7e8287;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--v-dark);
+            color: var(--v-text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .window-mockup {
+            width: 100%;
+            max-width: 750px;
+            background-color: var(--v-card);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            border: 1px solid #383e4a;
+        }
+
+        .window-header {
+            background-color: #111a22;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a323d;
+        }
+
+        .window-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--v-gray);
+            letter-spacing: 1px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #383e4a;
+        }
+        .control-dot.close { background-color: var(--v-red); }
+
+        .window-body {
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            height: 450px;
+        }
+
+        .sidebar-menu {
+            background-color: #161f28;
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #252f3a;
+        }
+
+        .menu-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--v-red);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .menu-btn {
+            background-color: #222c37;
+            color: var(--v-text);
+            border: 1px solid #323d4a;
+            padding: 10px 12px;
+            border-radius: 4px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .menu-btn:hover {
+            background-color: var(--v-red);
+            border-color: var(--v-red);
+        }
+
+        .chat-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #111a22;
+            border-radius: 6px;
+            border: 1px solid #252f3a;
+            overflow: hidden;
+        }
+
+        .chat-display {
+            padding: 15px;
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .msg.bot {
+            background-color: #222c37;
+            align-self: flex-start;
+            border-left: 3px solid var(--v-red);
+        }
+
+        .msg.system-welcome {
+            background-color: rgba(255, 70, 85, 0.1);
+            border: 1px dashed var(--v-red);
+            align-self: center;
+            text-align: center;
+            max-width: 95%;
+            color: #ffb4ba;
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 12px;
+            background-color: #161f28;
+            border-top: 1px solid #2a323d;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            background-color: #0f1923;
+            border: 1px solid #323d4a;
+            border-radius: 4px;
+            padding: 8px 12px;
+            color: var(--v-text);
+            font-size: 0.9rem;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--v-red);
+        }
+
+        .send-btn {
+            background-color: var(--v-red);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .send-btn:hover {
+            background-color: #d13442;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="window-mockup">
+        <div class="window-header">
+            <div class="window-title">ValoAcademy Web App (Conectado al Backend JSON)</div>
+            <div class="window-controls">
+                <div class="control-dot"></div>
+                <div class="control-dot"></div>
+                <div class="control-dot close"></div>
+            </div>
+        </div>
+
+        <div class="window-body">
+            <div class="sidebar-menu">
+                <div class="menu-title">Mecánicas Clave</div>
+                <button class="menu-btn" onclick="consultarMecanica('strafe shooting')">Strafe Shooting</button>
+                <button class="menu-btn" onclick="consultarMecanica('counter strafing')">Counter Strafing</button>
+                <button class="menu-btn" onclick="consultarMecanica('crosshair placement')">Crosshair Placement</button>
+                <button class="menu-btn" onclick="consultarMecanica('slicing the pie')">Slicing the pie</button>
+
+                <div class="menu-title" style="margin-top: 15px;">Armas del Meta</div>
+                <button class="menu-btn" onclick="consultarArma('vandal')">Vandal</button>
+                <button class="menu-btn" onclick="consultarArma('phantom')">Phantom</button>
+                <button class="menu-btn" onclick="consultarArma('sheriff')">Sheriff</button>
+            </div>
+
+            <div class="chat-section">
+                <div class="chat-display" id="chatDisplay">
+                    <div class="msg system-welcome">
+                        <strong>¡Bienvenido a ValoAcademy!</strong><br>
+                        Interfaz Web sincronizada dinámicamente con tu código de Python. Selecciona una opción o busca un término.
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="userInput" class="chat-input" placeholder="Escribe 'vandal', 'phantom', 'counter strafing'...">
+                    <button class="send-btn" onclick="procesarBusqueda()">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Imprimir la respuesta en la sección de chat
+        function publicarMensaje(htmlContenido) {
+            const display = document.getElementById('chatDisplay');
+            display.innerHTML = `
+                <div class="msg system-welcome">
+                    <strong>¡Bienvenido a ValoAcademy!</strong><br>Interfaz Web sincronizada dinámicamente con tu código de Python.
+                </div>
+                <div class="msg bot">${htmlContenido}</div>
+            `;
+        }
+
+        // Conectar con endpoint de mecánicas
+        async function consultarMecanica(nombre) {
+            try {
+                let response = await fetch(`/api/mecanica/${nombre}`);
+                let data = await response.json();
+                if (data.status === "success") {
+                    publicarMensaje(`<strong>${data.nombre}:</strong> ${data.descripcion}`);
+                }
+            } catch (error) {
+                console.error("Error al conectar con el backend:", error);
+            }
+        }
+
+        // Conectar con endpoint de armas y estructurar su JSON de daño
+        async function consultarArma(nombre) {
+            try {
+                let response = await fetch(`/api/arma/${nombre}`);
+                let data = await response.json();
+                if (data.status === "success") {
+                    let htmlDano = "";
+                    for (const [distancia, valores] of Object.entries(data.dano)) {
+                        htmlDano += `<br>• Rango (${distancia}): ${valores}`;
+                    }
+                    
+                    let htmlConsejo = "";
+                    if (typeof data.consejo === "object") {
+                        htmlConsejo += "<br><strong>Consejos tácticos:</strong>";
+                        for (const [dist, texto] of Object.entries(data.consejo)) {
+                            htmlConsejo += `<br>- <em>${dist}:</em> ${texto}`;
+                        }
+                    } else {
+                        htmlConsejo = `<br><strong>Consejo táctico:</strong> ${data.consejo}`;
+                    }
+
+                    publicarMensaje(`
+                        <strong>${data.nombre}</strong> (${data.tipo})<br>
+                        <strong>Costo:</strong> ${data.costo} créditos<br>
+                        <strong>Tabla de daños:</strong>${htmlDano}${htmlConsejo}
+                    `);
+                }
+            } catch (error) {
+                console.error("Error al conectar con el backend:", error);
+            }
+        }
+
+        // Lógica de la barra de búsqueda mediante inputs por texto
+        function procesarBusqueda() {
+            const input = document.getElementById('userInput');
+            const texto = input.value.toLowerCase().trim();
+            if (!texto) return;
+
+            // Mapeo básico para enlazar la búsqueda libre al API
+            if (texto.includes("vandal") || texto.includes("phantom") || texto.includes("sheriff")) {
+                let arma = texto.includes("vandal") ? "vandal" : (texto.includes("phantom") ? "phantom" : "sheriff");
+                consultarArma(arma);
+            } else if (texto.includes("strafe shooting") || texto.includes("strafe") || texto.includes("counter") || texto.includes("crosshair") || texto.includes("pie") || texto.includes("slicing")) {
+                let mecanica = texto.includes("counter") ? "counter strafing" : (texto.includes("crosshair") ? "crosshair placement" : (texto.includes("pie") ? "slicing the pie" : "strafe shooting"));
+                consultarMecanica(mecanica);
+            } else {
+                publicarMensaje("<strong>ValoAcademy:</strong> No encontré la respuesta a tu pregunta, intenta con otras palabras o consulta directamente en la página de Riot Games.");
+            }
+            input.value = "";
+        }
+    </script>
+</body>
+</html>
